@@ -1,11 +1,11 @@
 export interface User {
-    id: number;
+    id?: number;
     email: string;
     username: string;
     password: string;
     nomComplet: string;
-    isActive: boolean;
+    isActive?: boolean;
     role: string;
-    roles: string;
-    token: string;
+    roles?: string;
+    token?: string;
 }

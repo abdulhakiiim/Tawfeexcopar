@@ -16,6 +16,7 @@
   min-width: 100%;
   max-width: 300px;
   width: 100%;
+  
 }
 
 .login-wrapper .example-full-width,
@@ -28,6 +29,7 @@
   width: 100%;
   display: block;
   font-weight: 700;
+  
 }
 
 .login-wrapper mat-card-header mat-card-title {
@@ -47,4 +49,8 @@
 
 .login-wrapper .mat-form-field-appearance-legacy .mat-form-field-infix {
   padding: 0.8375em 0;
+}
+
+.title-card{
+  color: #006064;
 }

@@ -1,0 +1,55 @@
+<div>
+    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+        <h1 mat-dialog-title>Users list</h1>
+    </div>
+    <mat-dialog-content class="mat-typography">
+        <div class="search-div">
+        <mat-form-field class="search-form-field">
+            <input matInput [(ngModel)]="searchKey" placeholder="Find a user" autocomplete="off" (keyup)="applyFilter($event.target.value)">
+            <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="searchKey" (click)="onSearchClear()">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-form-field>
+        </div>
+        <div class="mat-elevation-z8" >
+        <mat-table [dataSource]="listData" matSort>
+            <ng-container matColumnDef = "nomComplet">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Full name</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.nomComplet}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef = "email">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Email</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.email}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef = "roles">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Role</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.roles}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef = "status">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
+                <mat-cell *matCellDef = "let element">
+                    <mat-slide-toggle color = "primary" class = "slide" (change) = "changeStatus(element.id, element.isActive)" [(ngModel)] = " element.isActive " >
+                        <span class="badge badge-pill badge-success" *ngIf="element.isActive == true">Activity</span>
+                        <span class="badge badge-pill badge-danger" *ngIf="element.isActive == false">Blocked</span>
+                    </mat-slide-toggle>
+                </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef ="loading">
+                <mat-footer-cell *matFooterCellDef colspan="6">Loading ... Please wait !!!</mat-footer-cell>
+            </ng-container>
+            <mat-header-row *matHeaderRowDef="displayedColumns"> </mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            <mat-footer-row *matFooterRowDef="['loading']" [ngClass]="{'hide':listData!=null }"></mat-footer-row>
+
+        </mat-table>
+        </div>
+        <mat-paginator 
+            [length]="100"
+            [pageSize]="10"
+            [pageSizeOptions]="[5, 10, 25, 100]">
+        </mat-paginator>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+        <button mat-button mat-dialog-close><mat-icon>close</mat-icon ></button>
+    </mat-dialog-actions>
+</div>

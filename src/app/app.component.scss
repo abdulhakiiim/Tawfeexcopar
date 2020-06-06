@@ -1,3 +1,35 @@
-.app-header{
-    background-color:#133337
+.sidenav-container {
+  height: 100%;
+}
+
+.sidenav {
+  width: 200px;
+}
+
+.sidenav .mat-toolbar {
+  background: inherit;
+}
+
+.mat-toolbar.mat-primary {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.hidden{
+  display: table;
+}
+
+.logout{
+  margin-left:-2px;
+}
+
+.vertical-menu {
+  background-color:#006064;
+  display: table-row-group;
+  width: 300px;
+}
+
+.mat-list-item {
+color: #fefefe; 
 }

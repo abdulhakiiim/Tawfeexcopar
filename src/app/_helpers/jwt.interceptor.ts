@@ -4,7 +4,9 @@ import { Observable } from 'rxjs';
 import { AuthenticationService } from '../_services/authentication.service';
 
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 export class JwtInterceptor implements HttpInterceptor {
     constructor(private authenticationService: AuthenticationService) {}
 
@@ -14,7 +16,8 @@ export class JwtInterceptor implements HttpInterceptor {
         if (currentUser && currentUser.token) {
             request = request.clone({
                 setHeaders: { 
-                    Authorization: `Bearer ${currentUser.token}`
+                    Authorization: `Bearer ${currentUser.token}`,
+                    'Content-Type': 'application/json'
                 }
             });
         }

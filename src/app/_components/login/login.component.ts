@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService } from '../../_services/authentication.service';
-import { first } from 'rxjs/operators'
-import { User } from 'src/app/_models/user';
 import { AlertService } from '../../_services/alert.service';
 
 @Component({
@@ -12,33 +10,40 @@ import { AlertService } from '../../_services/alert.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-    loginForm = new FormGroup({
-      username: new FormControl(''),
-      password: new FormControl(''),
-    });
+    loginForm: FormGroup;
     loading = false;
     submitted = false;
     returnUrl: string;
-   
 
   constructor(
+      private formBuilder: FormBuilder,
       private route: ActivatedRoute,
       private router: Router,
       private authenticationService: AuthenticationService,
       private alertService: AlertService
 
   ) { 
-      //redirect to home if already logged in
-      if(this.authenticationService.currentUserValue){
-          this.router.navigate(['/']);
-      }
+
+    //rediriger vers la page d'accueil si l'user déjà connecté
+    if (this.authenticationService.currentUserValue) {
+      this.router.navigate(['/home']);
+    }
   }
 
   ngOnInit() {
-      //get return url from route parameters or default to '/'
-      this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+      this.loginForm = this.formBuilder.group({
+          username: ['', Validators.required],
+          password: ['', Validators.required]
+      });
+
+      //obtenir l'url de retour des paramètres de route ou par défaut '/home'
+      this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/home';
   }
 
+  
+  // getter pratique pour un accès facile aux champs de formulaire
+  get f() { return this.loginForm.controls; }
+  
   onSubmit() {
    
   const username = this.loginForm.value.username;
@@ -46,10 +51,10 @@ export class LoginComponent implements OnInit {
 
       this.submitted = true;
 
-      // reset alerts on submit
+      // réinitialiser les alertes lors de la soumission
       this.alertService.clear();
 
-      // stop here if form is invalid
+      //arrêtez-vous ici si le formulaire n'est pas valide
       if (this.loginForm.invalid) {
           return;
       }
@@ -67,6 +72,7 @@ export class LoginComponent implements OnInit {
                     this.alertService.error(error);
                     this.loading = false;
               });
+
           
   }
 }
