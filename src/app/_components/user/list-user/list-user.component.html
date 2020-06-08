@@ -1,4 +1,7 @@
 <div>
+    <mat-dialog-actions align="end">
+        <button mat-button mat-dialog-close><mat-icon>close</mat-icon ></button>
+    </mat-dialog-actions>
     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
         <h1 mat-dialog-title>Users list</h1>
     </div>
@@ -35,7 +38,7 @@
                 </mat-cell>
             </ng-container>
             <ng-container matColumnDef ="loading">
-                <mat-footer-cell *matFooterCellDef colspan="6">Loading ... Please wait !!!</mat-footer-cell>
+                <mat-footer-cell *matFooterCellDef colspan="6"></mat-footer-cell>
             </ng-container>
             <mat-header-row *matHeaderRowDef="displayedColumns"> </mat-header-row>
             <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
@@ -49,7 +52,4 @@
             [pageSizeOptions]="[5, 10, 25, 100]">
         </mat-paginator>
     </mat-dialog-content>
-    <mat-dialog-actions align="end">
-        <button mat-button mat-dialog-close><mat-icon>close</mat-icon ></button>
-    </mat-dialog-actions>
 </div>

@@ -27,16 +27,15 @@
                 </div>
             </mat-form-field><br>
             <mat-form-field class="matinput-full-width">
-                <mat-select [(value)]="selected" formControlName="userRole" >
-                    <mat-option [value]="userRole" *ngFor="let userRole of role">
-                        {{userRole["libelle"]}}
+                <mat-select [(value)]="selected" formControlName="role" >
+                    <mat-option [value]="role" *ngFor="let role of roles">
+                         {{role.libelle}}
                     </mat-option>
                 </mat-select>
             </mat-form-field><br>
             <button mat-stroked-button
             color = "primary"
-            class="btn-block"
-            (click)="onRegister()">
+            class="btn-block">
             Register</button>
         </form>
 

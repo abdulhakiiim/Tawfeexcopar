@@ -17,8 +17,8 @@ export class UserService {
   }
 
   //Fonction pour la création d'un user
-  registrer({nomComplet, email, password, role}){
-      return this.http.post<any>(`${environment.apiUrl}/api/users`, {nomComplet, email, password, role});
+  registrer(data: any){
+      return this.http.post<any>(`${environment.apiUrl}/api/users`, data);
   }
 
 
